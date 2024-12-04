@@ -28,68 +28,51 @@ session_start();
             <h1> FILA DE COMPRAS </h1>
             
             <?php
-                $conectar = mysqli_connect ("localhost", "root", "", "motos");
-                
-                $sql_consulta = "SELECT  
-                                        Cod_moto, 
-                                        Marca,  
-                                        Modelo,  
-                                        Ano_de_fabricacao,  
-                                        Preco_de_venda  
-                                 FROM motos  
-                                 WHERE  
-                                        Cod_Venda IS NULL  
-                                 AND  
-                                        Status_de_disponibilidade = 'RESERVADO'";
-                                        
-                $resultado_consulta = mysqli_query ($conectar, $sql_consulta);                    
+                // Conectar com o banco de dados com verificação de erro
+                $conectar = mysqli_connect("localhost", "root", "", "motos");
+
+                if (!$conectar) {
+                    die("Erro de conexão: " . mysqli_connect_error());
+                }
+
+                // Preparar consulta
+                $sql_consulta = "SELECT Cod_moto, Marca, Modelo, Ano_de_fabricacao, Preco_de_venda 
+                                 FROM motos 
+                                 WHERE Cod_Venda IS NULL AND Status_de_disponibilidade = 'RESERVADO'";
+                $resultado_consulta = mysqli_query($conectar, $sql_consulta);
+
+                if (!$resultado_consulta) {
+                    echo "Erro na consulta: " . mysqli_error($conectar);
+                }
+
+                // Inicializar variável para total
+                $valor_total = 0;
             ?>
             
             <table width="100%">
-                <tr  height="50px">
-                    <td class="esquerda">
-                        Marca
-                    </td>
-                    <td>
-                        Modelo
-                    </td>
-                    <td>
-                        Ano
-                    </td>
-                    <td>
-                        Preço
-                    </td>                         
-                    <td class="direita">
-                        Ação
-                    </td>
+                <tr height="50px">
+                    <td class="esquerda">Marca</td>
+                    <td>Modelo</td>
+                    <td>Ano</td>
+                    <td>Preço</td>                         
+                    <td class="direita">Ação</td>
                 </tr>
                 <?php	
-                    $valor_total = 0;
-                    while ($registro = mysqli_fetch_row($resultado_consulta))
-                    {
+                    // Exibir resultados da consulta
+                    while ($registro = mysqli_fetch_assoc($resultado_consulta)) {
+                        $valor_total += $registro['Preco_de_venda']; // Adiciona ao total
                 ?>                      
                 <tr height="50px">
+                    <td><?php echo htmlspecialchars($registro['Marca']); ?></td>
                     <td>
-                        <?php echo $registro[1]; ?>
-                    </td>
-                    <td>
-                        <a href="exibe_moto.php?codigo=<?php echo $registro[0]?>"> 
-                            <?php  
-                                echo "$registro[2]";
-                            ?>
+                        <a href="exibe_moto.php?codigo=<?php echo urlencode($registro['Cod_moto']); ?>"> 
+                            <?php echo htmlspecialchars($registro['Modelo']); ?>
                         </a>
                     </td>
+                    <td><?php echo htmlspecialchars($registro['Ano_de_fabricacao']); ?></td>
+                    <td class="esquerda"><?php echo htmlspecialchars($registro['Preco_de_venda']); ?></td>                          
                     <td>
-                        <?php echo $registro[3]; ?>
-                    </td>
-                    <td class="esquerda">
-                        <?php  
-                            echo $registro[4];
-                            $valor_total = $valor_total + $registro[4];
-                        ?>
-                    </td>                          
-                    <td>
-                        <a href="processa_retira_fila_compras.php?codigo=<?php echo $registro[0]?>">
+                        <a href="processa_retira_fila_compras.php?codigo=<?php echo urlencode($registro['Cod_moto']); ?>">
                             Retirar da fila de compras	
                         </a>
                     </td>
@@ -98,9 +81,9 @@ session_start();
                     }
                 ?>
             </table>
-            <p> Total: <?php echo $valor_total; ?> </p>
-            <p> <a href="vendas.php"> Voltar a seleção de motos </a> </p>
-            <p> <a href="recibo_venda.php"> Finalizar venda </a> </p>
+            <p>Total: <?php echo number_format($valor_total, 2, ',', '.'); ?></p>
+            <p><a href="vendas.php">Voltar à seleção de motos</a></p>
+            <p><a href="recibo_venda.php">Finalizar venda</a></p>
             
         </div>	
         <div id="rodape">
