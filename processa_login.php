@@ -45,18 +45,22 @@ if ($linhas == 1) {
         $_SESSION["nome_fun"] = $registro["Nome"];
         $_SESSION["funcao_fun"] = $registro["Funcao"];
 
+        // Redirecionar para a página administrativa
         echo "<script> 
                 location.href = 'administracao.php'; 
               </script>";
+        exit();
     } else {
+        // Senha incorreta
         echo "<script> 
-                alert('Login ou Senha Incorretos! Digite Novamente!!');
+                alert('Senha incorreta! Tente novamente.');
               </script>";
         echo "<script> location.href = 'index.php'; </script>";
     }
 } else {
+    // Login não encontrado
     echo "<script> 
-            alert('Login ou Senha Incorretos! Digite Novamente!!');
+            alert('Login não encontrado! Tente novamente.');
           </script>";
     echo "<script> location.href = 'index.php'; </script>";
 }
