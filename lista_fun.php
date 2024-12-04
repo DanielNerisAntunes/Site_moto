@@ -2,11 +2,11 @@
 session_start();
 ?>
 <!DOCTYPE html>
-<html>
+<html lang="pt-br">
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Funcionários</title>
+    <title>Funcionários - Multi Motos</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" href="css/layout.css">
     <link rel="stylesheet" type="text/css" href="css/menu.css">
@@ -16,7 +16,7 @@ session_start();
     <div id="principal">
         <div id="topo">
             <div id="logo">
-                <h1> LOJA DE MOTOS </h1>
+                <h1> MULTI MOTOS </h1>
                 <h1> Nome da Loja </h1>
             </div>
             <div id="menu_global"  class="menu_global">
@@ -28,7 +28,7 @@ session_start();
             <h1> FUNCIONÁRIOS </h1>
             <p align="right">
                 <a href="cadastra_fun.php">
-                    Cadastro de funcionários
+                    Cadastro de Funcionários
                 </a>				
             </p>
             <?php
@@ -37,7 +37,7 @@ session_start();
                 $sql_consulta = "SELECT Nome, Funcao, Status, Cod_Fun
                                  FROM funcionarios";
                                  
-                $sql_resultado = mysqli_query ($conectar, $sql_consulta);				 
+                $sql_resultado = mysqli_query($conectar, $sql_consulta);
             ?>
             
             <table width="100%">
@@ -83,12 +83,10 @@ session_start();
         </div>	
         <div id="rodape">
             <div id="texto_institucional">
-                <div id="texto_institucional">
-                    <h6> CONTROLE DE MOTOS </h6> 
-                    <h6> Rua das Motos, 123 -- E-mail: contato@lojademotos.com.br -- Fone: (11) 9999-9999 </h6> 
-                </div> 
+                <h6> CONTROLE DE MOTOS </h6> 
+                <h6> Rua das Motos, 123 -- E-mail: contato@multimotos.com.br -- Fone: (11) 9999-9999 </h6> 
             </div>
-            
+        </div>
     </div>
 </body>
 </html>
