@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-br">
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Loja de Motos - Home</title>
+    <title>Multi Motos - Home</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" href="css/layout.css">
     <link rel="stylesheet" type="text/css" href="css/menu.css">
@@ -13,8 +13,8 @@
     <div id="principal">
         <div id="topo">
             <div id="logo">
-                <h1> LOJA DE MOTOS </h1>
-                <h1> Nome da Loja </h1>
+                <h1> MULTI MOTOS </h1>
+                <h1> Multi Motos </h1>
             </div>
         </div>
         <div id="conteudo_especifico">
@@ -35,11 +35,10 @@
         </div>
         <div id="rodape">
             <div id="texto_institucional">
-                <div id="texto_institucional">
-                    <h6> CONTROLE DE MOTOS </h6>
-                    <h6> Rua das Motos, 123 -- E-mail: contato@lojademotos.com.br -- Fone: (11) 9999-9999 </h6>
-                </div>
+                <h6> CONTROLE DE MOTOS </h6>
+                <h6> Rua das Motos, 123 -- E-mail: contato@multimotos.com.br -- Fone: (11) 9999-9999 </h6>
             </div>
+        </div>
     </div>
 </body>
 </html>
