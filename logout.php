@@ -1,10 +1,10 @@
 <?php
-session_start();
-$_SESSION = array();
-session_unset();
-session_destroy();
+session_start(); // Inicia a sessão
+$_SESSION = array(); // Limpa todas as variáveis de sessão
+session_unset(); // Libera todas as variáveis de sessão
+session_destroy(); // Destrói a sessão
 echo "<script> 
-        alert('Sessão encerrada com sucesso!'); 
-        location.href = ('index.php') 
+        alert('Sessão encerrada com sucesso!'); // Exibe uma mensagem de sucesso
+        location.href = ('index.php'); // Redireciona para a página inicial
       </script> ";
 ?>
