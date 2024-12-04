@@ -1,8 +1,11 @@
 <?php
-if ( isset($_SESSION["nome_fun"]) ) {
+session_start(); // Assegura que a sessão está ativa
+
+if (isset($_SESSION["nome_fun"])) {
     echo $_SESSION["nome_fun"];
 } else {
-    // Redirecionamento sem alert
-    echo "<script> location.href = ('index.php') </script>"; 
+    // Redirecionamento sem usar JavaScript
+    header("Location: index.php");
+    exit(); // Garante que o código abaixo não será executado
 }
 ?>
