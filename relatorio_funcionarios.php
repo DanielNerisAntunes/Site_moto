@@ -1,5 +1,18 @@
 <?php
 session_start();
+
+// Verifica se o usuário está autenticado
+if (!isset($_SESSION['cod_fun'])) {
+    header('Location: index.php');
+    exit();
+}
+
+$conectar = mysqli_connect("localhost", "root", "", "motos");
+
+// Verifica a conexão com o banco de dados
+if (!$conectar) {
+    die("Erro de conexão: " . mysqli_connect_error());
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -27,53 +40,40 @@ session_start();
         <div id="conteudo_especifico">
             <h1> RELATÓRIO DE FUNCIONÁRIOS ATIVOS</h1>
             <?php
-                $conectar = mysqli_connect("localhost", "root", "", "motos");
-                
-                $sql_pesquisa = "SELECT
-                                        Nome,
-                                        Funcao
-                                 FROM
-                                        funcionarios
-                                 WHERE 
-                                        Status = 'ATIVO'";
-                $resultado_pesquisa = mysqli_query ($conectar, $sql_pesquisa);
+                $sql_pesquisa = "SELECT Nome, Funcao
+                                 FROM funcionarios
+                                 WHERE Status = 'ATIVO'";
+                $resultado_pesquisa = mysqli_query($conectar, $sql_pesquisa);
+
+                // Verifica se a consulta foi bem-sucedida
+                if (!$resultado_pesquisa) {
+                    die("Erro ao consultar funcionários: " . mysqli_error($conectar));
+                }
             ?>
-            <table width="100%">	
-                    <tr height="50px">
-                        <td>
-                            Nome
-                        </td>
-                        <td>
-                            Função
-                        </td>
-                    </tr>
+            <table width="100%">
+                <tr height="50px">
+                    <th>Nome</th>
+                    <th>Função</th>
+                </tr>
                 <?php
                     while ($registro = mysqli_fetch_row($resultado_pesquisa)) {
                 ?>
-                    <tr height="50px">
-                        <td>
-                            <?php echo $registro[0]?>
-                        </td>
-                        <td>
-                            <?php echo $registro[1]?>
-                        </td>
-                    </tr>
+                <tr height="50px">
+                    <td><?php echo $registro[0]; ?></td>
+                    <td><?php echo $registro[1]; ?></td>
+                </tr>
                 <?php
                     }
                 ?>
             </table>
             <p> <a href="relatorios.php"> Voltar </a> </p>
-            
-                    
-        </div>	
+        </div>  
         <div id="rodape">
             <div id="texto_institucional">
-                <div id="texto_institucional">
-                    <h6> CONTROLE DE MOTOS </h6> 
-                    <h6> Rua das Motos, 123 -- E-mail: contato@lojademotos.com.br -- Fone: (11) 9999-9999 </h6> 
-                </div> 
-            </div>
-            
+                <h6> CONTROLE DE MOTOS </h6> 
+                <h6> Rua das Motos, 123 -- E-mail: contato@lojademotos.com.br -- Fone: (11) 9999-9999 </h6> 
+            </div>  
+        </div>
     </div>
 </body>
 </html>
