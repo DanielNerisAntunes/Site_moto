@@ -38,6 +38,7 @@ if ($sql_resultado_alteracao) {
           </script>";
     exit();
 } else {
+    // Em caso de erro, é bom registrar o erro
     echo "<script>
             alert('Ocorreu um erro no servidor. A moto não foi retirada da fila de compras. Tente de novo');
           </script>";
